@@ -1,26 +1,17 @@
 class ReminderCli < Formula
   desc "CLI tool to manage iCloud Reminders"
   homepage "https://github.com/yancya/reminder-cli"
-  url "https://github.com/yancya/reminder-cli/archive/refs/tags/v1.0.0.tar.gz"
-  sha256 "38e313162999dfb44563d63866595128bf698e5853423f00f846460e2fc01e14"
+  url "https://github.com/yancya/reminder-cli/releases/download/v1.0.1/reminder-cli-macos.tar.gz"
+  sha256 "4acc4757e4f1610faafa4025aac9250e9d69e835ed33e8b27b5f160224bfe44e"
   license "WTFPL"
 
   depends_on :macos
-  depends_on xcode: ["14.0", :build]
 
   def install
-    system "swift", "build", "-c", "release", "--disable-sandbox"
-    bin.install ".build/release/reminder-cli"
-
-    # Generate and install shell completions
-    output = Utils.safe_popen_read(bin/"reminder-cli", "--generate-completion-script", "zsh")
-    (zsh_completion/"_reminder-cli").write output
-
-    output = Utils.safe_popen_read(bin/"reminder-cli", "--generate-completion-script", "bash")
-    (bash_completion/"reminder-cli").write output
-
-    output = Utils.safe_popen_read(bin/"reminder-cli", "--generate-completion-script", "fish")
-    (fish_completion/"reminder-cli.fish").write output
+    bin.install "reminder-cli"
+    zsh_completion.install "completions/zsh/_reminder-cli"
+    bash_completion.install "completions/bash/reminder-cli"
+    fish_completion.install "completions/fish/reminder-cli.fish"
   end
 
   test do
