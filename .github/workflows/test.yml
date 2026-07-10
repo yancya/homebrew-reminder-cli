@@ -1,0 +1,43 @@
+name: Formula test
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "Formula/**"
+      - ".github/workflows/test.yml"
+  pull_request:
+    paths:
+      - "Formula/**"
+      - ".github/workflows/test.yml"
+  workflow_dispatch:
+
+env:
+  HOMEBREW_NO_AUTO_UPDATE: 1
+  HOMEBREW_NO_INSTALL_FROM_API: 1
+
+jobs:
+  test:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: homebrew-reminder-cli
+
+      - name: Install as local tap
+        run: |
+          TAP_DIR="$(brew --repository)/Library/Taps/yancya/homebrew-reminder-cli"
+          mkdir -p "$(dirname "$TAP_DIR")"
+          cp -R "$GITHUB_WORKSPACE/homebrew-reminder-cli" "$TAP_DIR"
+
+      - name: brew style
+        run: brew style yancya/reminder-cli/reminder-cli
+
+      - name: brew audit
+        run: brew audit --strict --online yancya/reminder-cli/reminder-cli
+
+      - name: brew install
+        run: brew install --formula yancya/reminder-cli/reminder-cli
+
+      - name: brew test
+        run: brew test yancya/reminder-cli/reminder-cli
