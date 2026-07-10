@@ -5,6 +5,7 @@ class ReminderCli < Formula
   sha256 "4acc4757e4f1610faafa4025aac9250e9d69e835ed33e8b27b5f160224bfe44e"
   license "WTFPL"
 
+  depends_on arch: :arm64
   depends_on :macos
 
   def install

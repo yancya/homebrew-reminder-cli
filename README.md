@@ -2,6 +2,8 @@
 
 Homebrew tap for [reminder-cli](https://github.com/yancya/reminder-cli) - A CLI tool to manage iCloud Reminders on macOS.
 
+> **Note:** This formula installs a prebuilt binary for Apple Silicon (arm64) only. Intel Mac support is not yet available (see [#3](https://github.com/yancya/homebrew-reminder-cli/issues/3)).
+
 ## Installation
 
 ```bash
