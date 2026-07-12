@@ -1,0 +1,9 @@
+name: Mark board item Done on issue close
+on:
+  issues:
+    types: [closed]
+jobs:
+  mark-board-done:
+    uses: yancya/workflows/.github/workflows/mark-board-done.yml@main
+    secrets:
+      PROJECT_TOKEN: ${{ secrets.PROJECT_TOKEN }}
