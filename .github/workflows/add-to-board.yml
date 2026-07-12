@@ -1,0 +1,9 @@
+name: Add new issues to board
+on:
+  issues:
+    types: [opened]
+jobs:
+  add-to-board:
+    uses: yancya/workflows/.github/workflows/add-to-board.yml@main
+    secrets:
+      PROJECT_TOKEN: ${{ secrets.PROJECT_TOKEN }}
