@@ -1,8 +1,8 @@
 class ReminderCli < Formula
   desc "CLI tool to manage iCloud Reminders"
   homepage "https://github.com/yancya/reminder-cli"
-  url "https://github.com/yancya/reminder-cli/releases/download/v1.0.1/reminder-cli-macos.tar.gz"
-  sha256 "4acc4757e4f1610faafa4025aac9250e9d69e835ed33e8b27b5f160224bfe44e"
+  url "https://github.com/yancya/reminder-cli/releases/download/v1.1.0/reminder-cli-macos.tar.gz"
+  sha256 "07dda425d53924ee5203f8685e870af976eeac2580c7680bf4cb2f6d7a4eacaf"
   license "WTFPL"
 
   depends_on arch: :arm64
