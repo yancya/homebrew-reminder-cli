@@ -217,3 +217,13 @@ JSON
 
   rm -rf "$work"
 }
+
+@test "github_api_auth_args sends a bearer token when GITHUB_TOKEN is set" {
+  result="$(GITHUB_TOKEN=secret-token github_api_auth_args)"
+  [[ "$result" == $'-H\nAuthorization: Bearer secret-token' ]]
+}
+
+@test "github_api_auth_args sends nothing when GITHUB_TOKEN is unset" {
+  result="$(unset GITHUB_TOKEN; github_api_auth_args)"
+  [ -z "$result" ]
+}

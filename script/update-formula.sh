@@ -17,8 +17,21 @@ extract_version_from_formula() {
   grep -o '/download/[^/]*/' "$formula" | head -1 | sed -e 's#/download/##' -e 's#/##'
 }
 
+# Prints curl arguments (one per line) that authenticate GitHub API requests
+# when GITHUB_TOKEN is set. Unauthenticated requests from shared CI runner
+# IPs are easily rate limited (HTTP 403).
+github_api_auth_args() {
+  if [ -n "${GITHUB_TOKEN:-}" ]; then
+    printf "%s\n" "-H" "Authorization: Bearer ${GITHUB_TOKEN}"
+  fi
+}
+
 fetch_latest_release() {
-  curl -sSf "https://api.github.com/repos/${UPSTREAM_REPO}/releases/latest"
+  local auth_args=()
+  while IFS= read -r arg; do
+    auth_args+=("$arg")
+  done < <(github_api_auth_args)
+  curl -sSf ${auth_args[@]+"${auth_args[@]}"} "https://api.github.com/repos/${UPSTREAM_REPO}/releases/latest"
 }
 
 download_asset() {
