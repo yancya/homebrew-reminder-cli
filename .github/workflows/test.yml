@@ -29,6 +29,8 @@ jobs:
           TAP_DIR="$(brew --repository)/Library/Taps/yancya/homebrew-reminder-cli"
           mkdir -p "$(dirname "$TAP_DIR")"
           cp -R "$GITHUB_WORKSPACE/homebrew-reminder-cli" "$TAP_DIR"
+          # Homebrew refuses to load formulae from untrusted third-party taps
+          brew trust yancya/reminder-cli
 
       - name: brew style
         run: brew style yancya/reminder-cli/reminder-cli
